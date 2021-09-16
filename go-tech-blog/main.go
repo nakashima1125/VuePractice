@@ -45,7 +45,6 @@ func articleIndex(c echo.Context) error {
 	      func htmlBlob(file string, data map[string]interface{}) ([]byte, error) {
 	        return pongo2.Must(pongo2.FromCache(tmplPath + file)).ExecuteBytes(data)
 	      }
-	    
 	      func render(c echo.Context, file string, data map[string]interface{}) error {
 	        b, err := htmlBlob(file, data)
 	        if err != nil {
