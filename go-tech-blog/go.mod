@@ -2,7 +2,10 @@ module go-tech-blog
 
 go 1.17
 
-require github.com/labstack/echo/v4 v4.5.0
+require (
+	github.com/flosch/pongo2/v4 v4.0.2
+	github.com/labstack/echo/v4 v4.5.0
+)
 
 require (
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect

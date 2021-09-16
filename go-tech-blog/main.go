@@ -6,7 +6,7 @@ import (
 	"time"
 
 	// 外部パッケージ
-	"github.com/flosch/pongo2"
+	"github.com/flosch/pongo2/v4"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
