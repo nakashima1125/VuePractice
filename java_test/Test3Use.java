@@ -13,7 +13,7 @@ public class Test3Use {
     int num = scan2.nextInt();
 
     System.out.println("クラスの初期値をします");
-    Test3 u = new Test3(s, num);
+    Test3 u = new Test3();
     System.out.println(u.name + "さんの年齢は" + u.age + "歳です");
 
     System.out.println("クラスの初期化を引数なしで行います");
