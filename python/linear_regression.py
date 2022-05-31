@@ -1,12 +1,12 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from pkg_resources import safe_extra
 import numpy as np
 
 
 def linear_regression(train_X, train_Y):
-    tmp = np.args(train_X.T @ train_X) @ (train_X.T @ train_Y)
-    pridict_Y =
+    tmp = np.linalg.inv(train_X.T @ train_X) @ (train_X.T @ train_Y)
+    pridict = tmp @ train_X.T
+    return pridict
 
 
 if __name__ == '__main__':
@@ -17,10 +17,11 @@ if __name__ == '__main__':
     train_X = np.concatenate(
         (np.ones((18, 1)), data["temprature"].values[:, None]), axis=1)
     train_Y = data["sales"].values
-#   pridict_Y = linear_regression(train_X, train_Y)
 
+    pridict_Y = linear_regression(train_X, train_Y)
 #   print("予測データ", pridict_Y.shape)
-    plt.scatter(data["temprature"], data["sales"], s=80)
+    plt.scatter(data["temprature"], data["sales"], s=80, c="b")
+    plt.plot(train_X[:, 1], pridict_Y, c="r")
     # plt.xlabel("気温")
     # plt.legend()
     plt.show()
