@@ -1,6 +1,6 @@
 // scanを2回使う場合は新規でオブジェクト化して用いないといけない
 
-package java_test;
+package java_test.B;
 import java.util.*;
 
 public class Test1 {

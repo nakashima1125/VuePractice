@@ -1,4 +1,4 @@
-package java_test;
+package java_test.B;
 
 import java.util.*;
 
