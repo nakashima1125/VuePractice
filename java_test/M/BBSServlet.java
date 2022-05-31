@@ -1,3 +1,8 @@
+/*
+ブラウザからきたHTTPリクエストを、webサーバへ投げて、webサーバーから依頼された内容をプログラム（サーブレット）で処理し
+ブラウザへHTTPレスポンスしている。ここで本プログラムは....
+流れの説明がほしい
+*/
 package la.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,10 +21,14 @@ public class BBSServlet extends HttpServlet {
 // コレクション
 List<String> articles = new ArrayList<String>();
 
+// クライアントがWebブラウザ上で入力した内容をサーバ側に送信するために使用するメソッド
 protected void doPost(HttpServletRequest request, HttpServletResponse
 response) throws ServletException, IOException {
 
+// responseオブジェクトのsetCharacterEncodingメソッドで文字コードを指定
 request.setCharacterEncoding("UTF-8");
+
+// クライアントからきたデータを取得
 String message = request.getParameter("message");
 if(message != null && message.length() != 0) {
 articles.add(message);
