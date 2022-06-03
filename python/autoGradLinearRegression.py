@@ -16,7 +16,8 @@ def fit(train_X, train_Y, a, X_star, eta, epoch):
 
 def obf_Linear_regression(train_X, train_Y, a):
     # (100, 1) - ((100 ,2) @ (2, 1))
-    E = jnp.sum((train_Y - (train_X @ a))**2)
+    N, _ = train_X.shape
+    E = 1/(2*N) * jnp.sum((train_Y - (train_X @ a))**2)
     return E
 
 
