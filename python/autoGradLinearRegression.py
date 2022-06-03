@@ -21,14 +21,14 @@ def obf_Linear_regression(train_X, train_Y, a):
 
 
 if __name__ == '__main__':
-    num = 30
+    num = 100
     # np.random.seed(1)
     x_min = 0
     x_max = 10
     x = np.linspace(x_min, x_max, num) 
-    eta = 1e-5
-    epoch = 1000
-    a = np.random.normal(loc=0, scale=1, size=(2, 1))
+    eta = 1e-6
+    epoch = 10000
+    a = np.random.normal(loc=0, scale=1e-5, size=(2, 1))
     
     epsilon = np.random.normal(loc=0, scale=1, size=len(x)) #ガウシアンノイズ
     y = x + epsilon 
