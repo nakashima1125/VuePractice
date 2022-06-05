@@ -1,60 +1,84 @@
+# jax.tree_multimapを使えば、もっと綺麗に勾配法が書ける
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import jax
 import jax.numpy as jnp
 from tqdm import tqdm
+from jax import grad
 
-def fit(train_X, train_Y, a, X_star, eta, epoch):
-    history = dict(error=np.zeros((epoch)))
+def fit(train_X, train_Y, params, eta, epoch):
+    history = dict(error=np.empty((epoch)),
+                   param=np.empty((epoch, 2, 1)))
 
+    grad_fn = jax.grad(obf_Linear_regression)
     for t in tqdm(range(epoch)):
-        da = jax.grad(obf_Linear_regression, argnums=(2))(train_X, train_Y, a)
-        a -= eta * da # aのshape(2, 1)
-        history['error'][t] = obf_Linear_regression(train_X, train_Y, a)
-    return X_star @ a, history
+        E = lambda params: obf_Linear_regression(train_X, train_Y, params)
+        dEda = grad(E, argnums=(0))(params)
+        # grad_E = jax.grad(obf_Linear_regression)
+        params['a0'] -= eta * dEda['a0']
+        params['a1'] -= eta * dEda['a1']
+        # history['param'][t] = a[t]
+        # history['error'][t] = obf_Linear_regression(train_X, train_Y, a)
+    return params
 
-def obf_Linear_regression(train_X, train_Y, a):
+@jax.jit
+def obf_Linear_regression(train_X, train_Y, params):
     # (100, 1) - ((100 ,2) @ (2, 1))
-    N, _ = train_X.shape
-    E = 1/(2*N) * jnp.sum((train_Y - (train_X @ a))**2)
+    # N, _ = train_X.shape
+    Y_hat = (train_X * params['a1']) + params['a0']
+    # E = (1 / (2*N))* jnp.sum((train_Y - Y_hat)**2)
+    E = jnp.power(train_Y - Y_hat, 2).mean()
     return E
 
 
 if __name__ == '__main__':
-    num = 100
+    num = 200
     # np.random.seed(1)
     x_min = 0
     x_max = 10
-    x = np.linspace(x_min, x_max, num) 
-    eta = 1e-6
-    epoch = 10000
-    a = np.random.normal(loc=0, scale=1e-5, size=(2, 1))
+    x = np.linspace(x_min, x_max, num)[:,None]
+    eta = 8e-3
+    epoch = 1000
+
+    params = {
+    'a0': jnp.zeros(x.shape[1:]),
+    'a1': 0.
+    }
+
+    # print(x.shape)
+    # print(params['a0'][:,None].shape)
     
-    epsilon = np.random.normal(loc=0, scale=1, size=len(x)) #ガウシアンノイズ
+    epsilon = np.random.normal(loc=0, scale=5e-1, size=x.shape) #ガウシアンノイズ
     y = x + epsilon 
+    # print(y.shape)
 
-    train_X = np.concatenate((jnp.ones((num, 1)), x[:, None]), axis=1)
-    train_Y = y
-
-    train_X = jnp.array(train_X)
-    train_Y = jnp.array(train_Y)
+    train_X = jnp.array(x)
+    train_Y = jnp.array(y)
 
     num_star = 300
     x_star = np.linspace(x_min, x_max, num_star)
-    X_star = np.concatenate((jnp.ones((num_star, 1)), x_star[:, None]), axis=1)
+    # X_star = np.concatenate((np.ones((num_star, 1)), x_star[:, None]), axis=1)
+    # print(X_star)
 
-    pridict_Y, history = fit(train_X, train_Y, a, X_star, eta, epoch)
-    pridict_Y = np.array(pridict_Y)
+    params = fit(train_X, train_Y, params, eta, epoch)
 
-    # print(pridict_Y)
-    # plt.scatter(train_X[:, 1], y, s=10, c="b")
-    # plt.plot(X_star[:, 1], pridict_Y, c="r")
-    # plt.xlabel("気温")
-    # plt.legend()
+    yy = x_star * params['a1'] + params['a0']
 
-    t = np.arange(len(history["error"]))
-    plt.plot(t, history["error"])
+    plt.plot(x_star, yy)
+
+
+    # print(history['param'][-1])
+    # pridict_Y = np.array(X_star @ history['param'][-1])
+
+    plt.scatter(train_X[:, 1], y, s=10, c="b")
+    # plt.plot(x_star, pridict_Y, c="r")
+
+    # # print(history['param'])
+
+    # # t = np.arange(len(history["error"]))
+    # # plt.plot(t, history["error"])
 
     plt.show()
 
