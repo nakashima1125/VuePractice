@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+# 作成したアプリをDjangoプロジェクトに認識させるの設定
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'kanban.apps.KanbanConfig'
 ]
 
 MIDDLEWARE = [
