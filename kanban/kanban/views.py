@@ -11,15 +11,20 @@ def index(request):
 def home(request):
     return render(request, "kanban/home.html")
 
-# サインアップ
+# POSTのときはパラメータのバリデーションを行って、データが正しい形式であればデータベースにデータを保存して、別のページにリダイレクトさせている 
 def signup(request):
   # POST : Webサーバに送る値を見えないところにくっつけて送るやり方
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
+        # 入力チェック（パスワードは短くないか、生年月日は数字か...）
         if form.is_valid():
+          # パラメータをもとにデータベースにデータを登録
             user_instance = form.save()
             login(request, user_instance)
+            # データベースにデータを保存したらhomeビューにリダイレクト（遷移）します。
             return redirect("kanban:home")
+
+            
   # GET : Webサーバに送る値をURLにくっつけて送るやり方（ページくれのリクエスト）
     else:
       # Djangoに用意されているフォームクラスをインスタンス化
