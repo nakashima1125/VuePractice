@@ -131,3 +131,5 @@ LOGIN_REDIRECT_URL = "kanban:home"
 
 # /kanban/logout/（ここはdjango設定）へ行くと自動で遷移
 LOGOUT_REDIRECT_URL = "kanban:index"
+
+LOGIN_URL = 'login'
