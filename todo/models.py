@@ -6,5 +6,5 @@ class TodoModel(models.Model):
   memo = models.TextField()
 # 管理画面でオブジェクトが作成されたときに実行されるもの
   def __str__(self):
-    return title
+    return self.title
 

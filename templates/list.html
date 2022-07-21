@@ -1,0 +1,8 @@
+<!-- object_listはモデルで指定した（TodoList）全てのデータを示す -->
+{% for item in  object_list%}
+<ul>
+<li>{{item.title}}</li>
+<li>{{item.memo}}</li>
+</ul>
+{% endfor %}
+
