@@ -1,8 +1,25 @@
-<!-- object_listはモデルで指定した（TodoList）全てのデータを示す -->
-{% for item in  object_list%}
-<ul>
-<li>{{item.title}}</li>
-<li>{{item.memo}}</li>
-</ul>
-{% endfor %}
+{% extends 'base.html' %}
 
+{% block header %}
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">TodoList</h1>
+    <p class="lead">効率的に生きよう</p>
+  </div>
+</div>
+{% endblock header %}
+
+{% block content %}
+{% for item in object_list %}
+<div class = 'container'>
+  <div class="alert alert-success" role="alert">
+    {{ item.title }}
+    <a href="#" class="btn btn-primary btn-lg disabled" tabindex="-1" role="button" aria-disabled="true">Primary link</a>
+    <a href="#" class="btn btn-secondary btn-lg disabled" tabindex="-1" role="button" aria-disabled="true">Link</a>
+  </div>
+  <div class="alert alert-success" role="alert">
+    {{ item.memo }}
+  </div>
+</div>
+{% endfor %}
+{% endblock content %}
