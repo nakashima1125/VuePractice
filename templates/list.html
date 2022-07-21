@@ -13,12 +13,10 @@
 {% for item in object_list %}
 <div class = 'container'>
   <div class="alert alert-success" role="alert">
-    {{ item.title }}
-    <a href="#" class="btn btn-primary btn-lg disabled" tabindex="-1" role="button" aria-disabled="true">Primary link</a>
-    <a href="#" class="btn btn-secondary btn-lg disabled" tabindex="-1" role="button" aria-disabled="true">Link</a>
-  </div>
-  <div class="alert alert-success" role="alert">
-    {{ item.memo }}
+    <p>{{ item.title }}</p>
+    <a href="#" class="btn btn-info" tabindex="-1" role="button" aria-disabled="true">編集</a>
+    <a href="#" class="btn btn-success" tabindex="-1" role="button" aria-disabled="true">削除</a>
+    <a href="#" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">詳細</a>
   </div>
 </div>
 {% endfor %}
