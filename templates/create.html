@@ -3,8 +3,8 @@
 {% block content %}
 <!-- formはタグの中のデータを扱うという意味で、actionはどこ遷移するのか。指定がない場合は、同じページに遷移-->
 <form action='' method="POST">
-  {{form.as_p}}
-
+  {% csrf_token %}
+  {{ form.as_p }}
 <!-- submitでデータをボタンで送る -->
 <input type="submit" value="create">
 </form>

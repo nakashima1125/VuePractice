@@ -1,3 +1,5 @@
+from audioop import reverse
+from sre_constants import SUCCESS
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView
 from todo.models import TodoModel
@@ -19,6 +21,7 @@ class TodoCreate(CreateView):
   model = TodoModel
   # form.as_pで表示される
   fields = ('title', 'memo', 'priority', 'duedate')
-
+  # formを送った後に遷移するページ（ないとURLを指定してとエラーがでる）
+  success_url = reverse_lazy('list')
 
 
