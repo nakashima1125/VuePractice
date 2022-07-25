@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView
 from todo.models import TodoModel
 from .models import TodoModel
-
+from django.urls import reverse_lazy
 
 class Todolist(ListView):
   # DIRSのところ
