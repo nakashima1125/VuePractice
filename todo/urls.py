@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import Todolist, TodoDetail, TodoCreate, TodoDelete
+from .views import Todolist, TodoDetail, TodoCreate, TodoDelete, TodoUpdate
 
 
 urlpatterns = [
@@ -8,5 +8,6 @@ urlpatterns = [
     path('detail/<int:pk>/', TodoDetail.as_view(), name = 'detail'),
     path('create/', TodoCreate.as_view(), name = 'create'),
     # どのデータを消すのかで<int:pk>がいる
-    path('delete/<int:pk>/', TodoDelete.as_view(), name = 'delete')
+    path('delete/<int:pk>/', TodoDelete.as_view(), name='delete'),
+    path('update/<int:pk>/', TodoUpdate.as_view(), name='update')
 ]
