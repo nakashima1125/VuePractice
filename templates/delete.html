@@ -1,0 +1,13 @@
+<!-- form.as_pがないのは、<int:pk>で何を消すべきかわかっているからである。だから、あとは消すか消さないかをコードに書くだけ -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- formはタグの中のデータを扱うという意味で、actionはどこ遷移するのか。指定がない場合は、同じページに遷移-->
+<form action='' method="POST">
+  {% csrf_token %}
+<!-- submitでデータをボタンで送る -->
+<input type="submit" value="delete">
+</form>
+
+{% endblock content %}

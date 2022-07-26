@@ -1,7 +1,7 @@
 from audioop import reverse
 from sre_constants import SUCCESS
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView
 from todo.models import TodoModel
 from .models import TodoModel
 from django.urls import reverse_lazy
@@ -24,4 +24,9 @@ class TodoCreate(CreateView):
   # formを送った後に遷移するページ（ないとURLを指定してとエラーがでる）
   success_url = reverse_lazy('list')
 
-
+class TodoDelete(DeleteView):
+  template_name = 'delete.html'
+  # どのデータを消すのかで必要
+  model = TodoModel
+  # 削除した後にどこへ遷移するのかで必要
+  success_url = reverse_lazy('list')
