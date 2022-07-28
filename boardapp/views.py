@@ -3,13 +3,8 @@ from django.contrib.auth.models import User
 
 
 def signupfunc(request):
-  # 全てのUserデータをobjectへいれる
-  object = User.objects.get(username = 'nakashima')
-  print(object.email)
-
   if request.method == "POST":
-    print('post')
-  else:
-    print('not post')
-  # {}はモデルのデータや任意のデータ
+    username = request.POST['username']
+    password = request.POST['password']
+    user = User.objects.create_user(username, '', password)
   return render(request, 'signup.html', {})
