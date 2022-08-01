@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib.auth import authenticate, login
 
+from .models import BoardModel
+
 def signupfunc(request):
   if request.method == "POST":
     username = request.POST['username']
@@ -29,5 +31,6 @@ def loginfunc(request):
 
 
 def listfunc(request):
-  return render(request, 'list.html', {})
+  object_list = BoardModel.objects.all()
+  return render(request, 'list.html', {'object_list' : object_list})
 
