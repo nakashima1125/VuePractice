@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import BoardModel
 
-# Register your models here.
+# adminのサイトにBoardModelを認識させるコード（管理画面で見れるようになる）
+admin.site.register(BoardModel)

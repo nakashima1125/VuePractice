@@ -1,3 +1,17 @@
+from distutils.command.upload import upload
+from unittest.util import _MAX_LENGTH
+from urllib.parse import MAX_CACHE_SIZE
 from django.db import models
 
-# Create your models here.
+class BoardModel(models.Model):
+  title = models.CharField(max_length=100)
+  content = models.TextField()
+  author = models.CharField(max_length=50)
+  #  upload_toに何も書かない場合は、setting.pyに書いてるところに画像が保存される
+  sns_image = models.ImageField(upload_to='')
+  good = models.IntegerField()
+  # 既読数
+  read = models.IntegerField()
+  # 同じ人が推しても既読が増えないためのもの
+  readtext = models.TextField()
+
