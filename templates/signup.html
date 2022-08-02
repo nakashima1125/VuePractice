@@ -1,17 +1,32 @@
 {% extends 'base.html' %}
+<!-- staicfilrs_dirに入っているディレクトリの場所をdjangoに教えている -->
+{% load static %}
+
+{% block customcss %}
+<link href="{% static 'style.css' %}" rel="stylesheet">
+{% endblock customcss %}
 
 {% block content %}
 <body class="text-center">
   {{ error }}
-    <form class="form-signin" method="POST">{% csrf_token %}
+<main class="form-signin w-100"></main>
+  <form class="form-signin" method="POST">{% csrf_token %}
+
     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-    <label for="inputEmail" class="sr-only">Email Address</label>
-    <input type="text" class="form-control" id="inputEmail" placeholder="username" name="username">
-    
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password">
-    <label for="floatingPassword">Password</label>
+    <div class="form-floating">
+      <input type="username" class="form-control" id="floatingInput" placeholder="username">
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="password">
+    </div>
+
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+    </div>
     <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-    </form>
-    </body>
+  </form>
+</main>
+</body>
 {% endblock content %}
