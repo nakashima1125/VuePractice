@@ -48,3 +48,11 @@ def detailfunc(request, pk):
   # 対象とするモデルの対象の番号があり、それを返し、なければ404エラーを返す。
   object = get_object_or_404(BoardModel, pk=pk)
   return render(request, 'detail.html', {'object':object})
+
+
+def goodfunc(request, pk):
+  # get_object_or_404も使えるが練習のため、色々な書き方を試す
+  object = BoardModel.objects.get(pk=pk)
+  object.good = object.good + 1
+  object.save()
+  return redirect('list')
