@@ -1,10 +1,11 @@
 from django.db import IntegrityError
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .models import BoardModel
+from django.shortcuts import get_object_or_404
 
 def signupfunc(request):
   if request.method == "POST":
@@ -41,3 +42,9 @@ def listfunc(request):
 def logoutfunc(request):
     logout(request)
     return redirect('login')
+
+# pkはurls.pyのpkで、それを取ってくる
+def detailfunc(request, pk):
+  # 対象とするモデルの対象の番号があり、それを返し、なければ404エラーを返す。
+  object = get_object_or_404(BoardModel, pk=pk)
+  return render(request, 'detail.html', {'object':object})

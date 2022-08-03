@@ -15,3 +15,6 @@ class BoardModel(models.Model):
   # 同じ人が推しても既読が増えないためのもの
   readtext = models.TextField()
 
+  def __str__(self):
+    return self.title
+
