@@ -81,4 +81,3 @@ class BoardCreate(CreateView):
   model = BoardModel
   fields = ('title', 'content', 'author', 'sns_image')
   success_url = reverse_lazy('list')
-
