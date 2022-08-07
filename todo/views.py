@@ -1,10 +1,12 @@
 from audioop import reverse
-from sre_constants import SUCCESS
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from todo.models import TodoModel
 from .models import TodoModel
 from django.urls import reverse_lazy
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+
 
 class Todolist(ListView):
   # DIRSのところ
@@ -38,3 +40,18 @@ class TodoUpdate(UpdateView):
   # データベースの何の情報をアップデートするのかで必要（HTML上で表示するのに必要）
   fields = ('title', 'memo', 'priority', 'duedate')
   success_url = reverse_lazy('list')
+
+
+def signupFunc(request):
+  if request.method == "POST":
+    form = UserCreationForm(request.POST)
+    # これは中身が規則通りに書かれているか判定（e.g.パスワードは４桁以上など）
+    if form.is_valid():
+      # データベースへ登録
+      user_instance = form.save()
+      login(request, user_instance)
+      return redirect('list')
+  else:
+    # ユーザー登録に必要な項目をフォームで定義してある
+    form = UserCreationForm()
+  return render(request, 'signup.html', {"form" : form})
