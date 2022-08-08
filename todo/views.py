@@ -5,7 +5,7 @@ from todo.models import TodoModel
 from .models import TodoModel
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate
 
 
 class Todolist(ListView):
@@ -55,3 +55,16 @@ def signupFunc(request):
     # ユーザー登録に必要な項目をフォームで定義してある
     form = UserCreationForm()
   return render(request, 'signup.html', {"form" : form})
+
+def loginFunc(request):
+  print(request.POST)
+  if request.method == 'POST':
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+      login(request, user)
+      return redirect('list')
+    else:
+      return render(request, 'login.html', {})
+  return render(request, 'login.html', {})

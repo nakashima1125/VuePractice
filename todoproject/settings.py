@@ -112,13 +112,12 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.0/howto/static-files/
-
-STATIC_URL = 'static/'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATIC_URL = '/sta/'
+
+# 開発側の画像ファイルの保存場所,deployで仕様される。この下のやつで保存したものを全てstaticfielsに保存するというもの。
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# 静的なファイルを管理する（cssなど）
+STATICFILES_DIRS = [str(BASE_DIR / 'static')]
