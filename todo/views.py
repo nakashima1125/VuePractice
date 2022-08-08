@@ -68,3 +68,6 @@ def loginFunc(request):
     else:
       return render(request, 'login.html', {})
   return render(request, 'login.html', {})
+
+def indexFunc(request):
+  return render(request, 'index.html', {})
