@@ -6,7 +6,7 @@ from .models import TodoModel
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
-
+from django.contrib.auth.decorators import login_required
 
 class Todolist(ListView):
   # DIRSのところ
@@ -71,3 +71,6 @@ def loginFunc(request):
 
 def indexFunc(request):
   return render(request, 'index.html', {})
+
+def testFunc(request):
+  return render(request, 'sidevar.html', {})
