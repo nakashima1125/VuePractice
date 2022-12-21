@@ -12,11 +12,11 @@ def linear_regression(train_X, train_Y, X_star):
 if __name__ == '__main__':
     learning_num = 50
     np.random.seed(0)
-    x_min = 10
-    x_max = 40
+    x_min = -2 * np.pi
+    x_max = np.pi
     x = np.linspace(x_min, x_max, learning_num) # temprature
-    epsilon = np.random.normal(loc=0, scale=7e-0, size=len(x)) #ガウシアンノイズ
-    y = -x + epsilon # sales
+    epsilon = np.random.normal(loc=0, scale=3e-1, size=len(x)) #ガウシアンノイズ
+    y = np.sin(x) + epsilon # sales
 
     train_X = np.concatenate((np.ones((learning_num, 1)), x[:, None]), axis=1)
     train_Y = y

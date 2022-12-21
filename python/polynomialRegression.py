@@ -10,7 +10,7 @@ def polynomial_regression(train_X, train_Y, X_star1):
 
 if __name__ == '__main__':
     num = 10
-    zisuu = 10
+    zisuu = 5
     x_min = -np.pi * 2
     x_max = np.pi * 2
     np.random.seed(0)
@@ -25,9 +25,7 @@ if __name__ == '__main__':
         train_X = np.concatenate((train_X, tmp_x[:, None]), axis=1)
 
     train_Y = y
-    
-    
-    
+ 
     star_num = 500
     X_star =  np.linspace(x_min, x_max, star_num)
     
@@ -37,9 +35,6 @@ if __name__ == '__main__':
         X_star1 = np.concatenate((X_star1, tmp_x1[:, None]), axis=1)
 
     pridict_Y = polynomial_regression(train_X, train_Y, X_star1)
-#   print("予測データ", pridict_Y.shape)
     plt.scatter(train_X[:, 1], y, s=50, c="b")
     plt.plot(X_star1[:, 1], pridict_Y, c="r")
-    # plt.xlabel("気温")
-    # plt.legend()
     plt.show()
