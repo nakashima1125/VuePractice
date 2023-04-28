@@ -32,8 +32,6 @@ def heap_sort(slist):
 
   return ans
 
-
-
 if __name__ == "__main__":
     sample_list = [10, 8, 4, 1, 7]
     ans = heap_sort(sample_list)
