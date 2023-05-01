@@ -1,6 +1,41 @@
+eval = FALSEはchunkを実際にRのコードとして評価するか否かを示すchunkのオプション
+```{r eval = FALSE}
+# remove.packages("knitr")
+install.packages("knitr")
+install.packages("tidyverse")
+install.packages("rmarkdown")
+```
+
+## 使用パッケージ
+- knitr
+- tidyverse
 
 
+#### knitr
+Rstudio 上で使うことができる R のパッケージの一つで、HTMLファイルなどの資料を簡単に作成することができる。
 
+#### tidyverse
+モダンなデータ分析を行うためのパッケージ群。データの読み込み、抽出、加工、可視化といった、データ分析における基本的な作業を効率的に行う。
+
+#### r setup, include=FALSE
+パッケージの読み込みやRのオプション設定、その他、レポート内のコード全般に関する設定などを行う。このセットアップチャンクは必須ではないが、R Markdown全体の見通しが良くなる。
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+#### datasets
+R言語で使用できるデータセットパッケージを呼び出し、data()で宣言して用いることができる。
+```{r}
+library(datasets)
+data(iris)
+df <- iris
+head(df)
+```
 
 
 
