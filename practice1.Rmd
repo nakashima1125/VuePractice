@@ -4,7 +4,6 @@ eval = FALSEはchunkを実際にRのコードとして評価するか否かを�
 install.packages("knitr")
 install.packages("tidyverse")
 install.packages("rmarkdown")
-install.packages("dplyr")
 ```
 
 ## 使用パッケージ
@@ -44,21 +43,6 @@ head(df)
 names(df)
 ```
 
-#### dplyr
-dplyr は表型データの操作に特化した R のパッケージ
 
-##### 変数を2つ選ぶ
-```{r}
-dplyr::select(df, Sepal.Width, Petal.Length)
-```
 
-##### 変数を範囲で選ぶ+追加変数
-```{r}
-dplyr::select(df, Sepal.Width:Petal.Length, Species)
-```
-
-##### 指定した文字で始まるor終わる変数
-```{r}
-dplyr::select(df, starts_with("Spe"), ends_with("th"))
-```
 
