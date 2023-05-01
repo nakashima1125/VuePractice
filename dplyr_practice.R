@@ -45,5 +45,4 @@ df <- iris
 #   dplyr::mutate(なんかの合計=2.0)
 
 
-
       
