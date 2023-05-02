@@ -10,16 +10,17 @@ def bm_search(hikaku, patern):
   for s in range(len(patern)-1):
     skip[patern.index(patern[s])] = len(patern) - s
   
-  cnt = len(patern)
+  cnt = len(patern) 
 
   while(cnt < len(hikaku)-1):
     start = cnt
-    for j in reversed(range(len(patern)-1)):
+    for j in reversed(range(len(patern))):
       # paternの末尾とhikakuのpaternの要素数目の場所を比較
       if(hikaku[cnt] != patern[j]):
         # 横にずらす
         cnt = start + skip[hikaku.index(hikaku[cnt])]
         match = False
+        print(cnt)
         break
       else:
         match = True
@@ -29,7 +30,7 @@ def bm_search(hikaku, patern):
   return -1
 
 if __name__ == "__main__":
-  compared_list = ["A", "B", "A", "B", "B", "D", "A", "B", "A", "B", "C"]
+  compared_list = ["A", "B", "A", "B", "C", "D", "A", "B", "A", "B", "C"]
   patern = ["A", "B", "A", "B", "C"]
   ans = bm_search(compared_list, patern)
   print(ans)
