@@ -40,9 +40,29 @@ df <- iris
 #   dplyr::filter(Sepal.Width > 2.0) |>
 #   dplyr::select(Petal.Width, Species)
 
-## mutateはカラムにおける平均値、合計値などの演算ができ、カラム追加もできる。
+## mutateはカラムにおける平均値、合計値などの演算ができ、カラム追加もできる関数。
 # df |>
 #   dplyr::mutate(なんかの合計=2.0)
+
+## summariseはカラムを集計してくれる関数。欠損値があるとna.rm = TRUEを指定しないと計算しない。
+# df |>
+#   dplyr::summarise(Sepal.Width_mean = mean(Sepal.Width), na.rm = TRUE)
+
+
+## across()はその引数の変数であるカラムに対して、次に続く関数を適応せよという意味の関数。
+## c()は引数に渡したオブジェクトをベクトルかリストの形式で結合してくれる関数
+## list()はリスト形式で記述するときに使用するだけでなく、単純に実行した場合は同じ列名のまま結果を返してくれる。
+## そこで、無名関数を使い「mean = 」などで名前をつけることで、summariesで帰ってきた結果に対して、新規に列名_meanの列を作成する。
+# df |>
+#   dplyr::summarize(dplyr::across(c(Sepal.Length, Sepal.Width),
+#                                  list(mean = \(x) mean(x, na.rm=TRUE),
+#                                       sd = \(x) sd(x, na.rm = TRUE))))
+
+
+## group byでグループごとに計算する。
+df |>
+  dplyr::group_by(Species) |>
+  dplyr::summarise(Sepal.Length_mean = mean(Sepal.Length, na.rm = TRUE))
 
 
       
