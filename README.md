@@ -4,4 +4,3 @@
 # 使用言語
 - Python
 - Ruby
-- Java
