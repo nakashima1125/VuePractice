@@ -22,7 +22,7 @@ const app = Vue.createApp({
     this.tick();
   },
   // Vue.jsで使う関数は、全て"methods"の中に記述する。
-  method: {
+  methods: {
     // 現在時刻を取得するメソッド
     tick() { 
       console.log("tick");
