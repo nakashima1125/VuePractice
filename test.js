@@ -7,7 +7,7 @@ const b = 2;
 const test = test1(a, b);
 console.log(test); 
 
-// アロー関数に分解してみる
+// アロー関数に分解
 (a, b) => {
   return a + b;
 }
