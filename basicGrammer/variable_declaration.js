@@ -1,4 +1,5 @@
 // constは再代入できない変数の宣言。必ずしも定数で定義されているわけではない。
+// while文で+=する場合の再代入では使用できない。
 const test = "value";
 const booktitle = "みんなのpython";
 
