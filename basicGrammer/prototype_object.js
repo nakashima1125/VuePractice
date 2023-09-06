@@ -11,4 +11,4 @@ console.log(obj.toString === Object.prototype.toString);
 // 静的メソッドとin演算子
 const obj2 = {};
 console.log(Object.hasOwn(obj2, "toString"));
-console.log("toString" in obj);
+console.log("toString" in obj2);
