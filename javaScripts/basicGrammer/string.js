@@ -48,8 +48,8 @@ console.log(str2.replace(/にわ/g, "あほ"));
 // console.log(str2.replaceAll(/にわ/, "あほ"));
 
 // タグ付きテンプレート関数
+// テンプレートとなる文字列に対して特定の形式に変換したデータを埋め込むといったテンプレート処理ができる。
 function tag(str) {
   console.log(str);
 }
-
 tag(`template ${0} literal ${1}`);
