@@ -20,4 +20,26 @@ const test1 = [1, 2, 3];
 console.log(Object.hasOwn(test1, 2));
 
 // インデックスの取得
-console.log(test1.indexOf(2));
+const records = [
+  { date: "2020/12/1", count: 5 },
+  { date: "2020/12/2", count: 11 },
+  { date: "2020/12/3", count: 9 },
+  { date: "2020/12/4", count: 12 },
+  { date: "2020/12/5", count: 3 },
+];
+
+// 10より大きい`count`プロパティを持つ最初のオブジェクトのインデックスを取得
+const firstRecordIndex = records.findIndex((record) => {
+  return record.count > 10;
+});
+// 10より大きい`count`プロパティを持つ最後のオブジェクトのインデックスを取得
+const lastRecordIndex = records.findLastIndex((record) => {
+  return record.count > 10;
+});
+
+// reduceメソッド
+const ary2 = [1, 2, 3];
+const totalValue = ary2.reduce((accumulator, currentValue, index, ary2) => {
+  return accumulator + currentValue;
+}, 0);
+console.log(totalValue);
