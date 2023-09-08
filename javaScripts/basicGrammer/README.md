@@ -5,3 +5,5 @@
 ## 参考サイト
 
 https://jsprimer.net/
+
+非同期処理:Promise/Async Function
