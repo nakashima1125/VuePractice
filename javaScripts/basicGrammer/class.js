@@ -106,3 +106,26 @@ class Colors {
 console.log(Colors.GREEN);
 // クラス内からプライベートフィールドを参照できる
 Colors.outputPrivate();
+
+// 継承
+class Parent {
+  constructor() {
+    this.name = "hello";
+  }
+
+  method() {
+    console.log("Parent method");
+  }
+}
+
+class Child extends Parent {
+  constructor() {
+    super();
+  }
+  method() {
+    console.log(this.name);
+    super.method();
+  }
+}
+const child = new Child();
+child.method();
