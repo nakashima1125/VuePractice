@@ -1,0 +1,71 @@
+## chunkオプション
+- eval : FALSEはchunkを実際にRのコードとして評価するか否か。
+- echo : chunkを出力として表示するか否か。
+- include : chunk・実行結果を出力(RStudioならHTML）に入れるか否か。
+- message : message関数の結果を表示させるか否か(パッケージ読み込みで表示されるメッセージ等の事)・
+```{r eval=FALSE, echo=FALSE, include=FALSE, message=FALSE}
+print("test")
+```
+
+
+```{r eval = FALSE}
+# remove.packages("knitr")
+install.packages("knitr")
+install.packages("tidyverse")
+install.packages("rmarkdown")
+```
+
+## 使用パッケージ
+- knitr
+- tidyverse
+
+
+#### knitr
+Rstudio 上で使うことができる R のパッケージの一つで、HTMLファイルなどの資料を簡単に作成することができる。
+
+#### tidyverse
+モダンなデータ分析を行うためのパッケージ群。データの読み込み、抽出、加工、可視化といった、データ分析における基本的な作業を効率的に行う。
+
+#### r setup, include=FALSE
+パッケージの読み込みやRのオプション設定、その他、レポート内のコード全般に関する設定などを行う。このセットアップチャンクは必須ではないが、R Markdown全体の見通しが良くなる。
+```{r setup, include=FALSE}
+library(knitr)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+#### datasets
+R言語で使用できるデータセットパッケージを呼び出し、data()で宣言して用いることができる。
+```{r}
+library(datasets)
+data(iris)
+df <- iris
+head(df)
+```
+#### names
+カラムの表示で、Rにデフォルトでついている。
+```{r}
+#  カラム数の表示
+names(df)
+```
+
+## ヒストグラム(度数分布)でデータの特徴を確認。Rにデフォルトでついている。
+```{r}
+hist(df$Sepal.Length)
+```
+## 結果をexcelファイル、CSVファイルに出力する。
+```{r eval=FALSE, include=FALSE}
+install.packages("writexl")
+library(writexl)
+write_xlsx(names(df), path="パス名/hoge.xlsx")
+# write_excel_csv()
+```
+## diffrで2つのファイル内容の比較する。
+```{r}
+install.packages("diffr")
+library(duffr)
+diffr::diffr("practice.Rmd", "dplyr_practice.R")
+```

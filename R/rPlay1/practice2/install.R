@@ -1,0 +1,7 @@
+install.packages("janitor")
+install.packages("lubridate")
+install.packages("dplyr")
+install.packages("tidyr")
+install.packages("corrr")
+install.packages("tidyverse")
+install.packages("broom")

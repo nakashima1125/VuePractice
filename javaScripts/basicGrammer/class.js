@@ -91,5 +91,41 @@ class Test {
 }
 const test = new Test(1);
 console.log(test.value);
-test.value(2);
-console.log(test.value);
+
+// staticフィールド：インスタンス化しなくても利用できる。
+class Colors {
+  static GREEN = "緑";
+  static RED = "赤";
+  static #BLUE = "青";
+
+  static outputPrivate() {
+    console.log(this.#BLUE);
+  }
+}
+// インスタンス化しなくても参照できる。
+console.log(Colors.GREEN);
+// クラス内からプライベートフィールドを参照できる
+Colors.outputPrivate();
+
+// 継承
+class Parent {
+  constructor() {
+    this.name = "hello";
+  }
+
+  method() {
+    console.log("Parent method");
+  }
+}
+
+class Child extends Parent {
+  constructor() {
+    super();
+  }
+  method() {
+    console.log(this.name);
+    super.method();
+  }
+}
+const child = new Child();
+child.method();
