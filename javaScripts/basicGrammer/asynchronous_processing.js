@@ -66,3 +66,18 @@ function throwPromise() {
 throwPromise().catch((error) => {
   console.log(error.message); // => "例外が発生"
 });
+
+// ランダムでFulfilledまたはrejectedのpromiseインスタンスを返す
+function asyncTask() {
+  return Math.random() > 0.5
+    ? Promise.resolve("成功")
+    : Promise.reject(new Error("失敗"));
+}
+
+asyncTask()
+  .then(function onFulfiiled(value) {
+    console.log(value);
+  })
+  .catch(function onRejected(error) {
+    console.log(error.message);
+  });
