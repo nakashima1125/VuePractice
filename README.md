@@ -4,6 +4,7 @@
 ## 遊んだ言語や技術
 - R
 - javaScripts
+  - VUE
 - Go
 - Docker
 
