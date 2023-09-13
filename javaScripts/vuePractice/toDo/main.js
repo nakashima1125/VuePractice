@@ -1,44 +1,67 @@
-// https://jp.vuejs.org/v2/examples/todomvc.html
-var STORAGE_KEY = "todos-vuejs-demo";
-var todoStorage = {
-  fetch: function () {
-    var todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    todos.forEach(function (todo, index) {
-      todo.id = index;
-    });
-    todoStorage.uid = todos.length;
-    return todos;
-  },
-  save: function (todos) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
-  },
-};
+// strictモードにして、一部のエラーや不適切なコードの使用を防ぐ
+(() => {
+  "use strict";
 
-// Vueのインスタンスを作成：Vue.jsの機能を使用してアプリケーションのデータとUIを管理
-const app = new Vue({
-  el: "#app", // #はprivateフィールド
-  data: {
-    todos: [], //空の配列
-  },
-  method: {
-    //   todo処理の追加
-    doAdd: function (event, value) {
-      // refで名前を付けておいた要素を参照
-      var comment = this.$refs.comment;
-      // 入力がなければ何もしないでreturn
-      if (!comment.value.length) {
-        return;
-      }
-      // { 新しいID, コメント, 作業状態 }
-      // というオブジェクトを現在の todos リストへ push
-      // 作業状態「state」はデフォルト「作業中=0」で作成
-      this.todos.push({
-        id: todoStorage.uid++,
-        comment: comment.value,
-        state: 0,
-      });
-      //   フォーム要素を空にする。
-      comment.value = "";
+  // vueのコンストラクタを使用してvueのインスタンスを作成
+  let vm = new Vue({
+    // el: "#result": Vueインスタンスのelオプション。
+    // VueアプリケーションがマウントされるHTML要素を指定します。
+    el: "#result",
+
+    //  Vueインスタンスのデータオブジェクトを定義。
+    // Vueアプリケーション内で使用されるデータプロパティが含まれる。
+    data: {
+      // 「newList」はテキストボックスに入力した値を受ける
+      newList: "",
+      lists: [],
     },
-  },
-});
+
+    // ブラウザのLocalStorageにJSON形式で保存
+    watch: {
+      lists: {
+        handler: function () {
+          // dataの「lists」は「this.lists」で取得
+          localStorage.setItem("lists", JSON.stringify(this.lists));
+        },
+        deep: true,
+      },
+    },
+    // ブラウザのLocalStorageから出力
+    mounted: function () {
+      this.lists = JSON.parse(localStorage.getItem("lists")) || [];
+    },
+
+    // イベント時の動作
+    methods: {
+      addList: function () {
+        let item = {
+          title: this.newList,
+        };
+        this.lists.push(item); //itemをlistへ追加
+        this.newList = ""; //追加が終われば空にする。
+      },
+      delList: function (index) {
+        // 確認ダイアログを表示し、ユーザーが削除を確認した場合のみ実行
+        if (confirm("削除しますか？")) {
+          // index から始まる1つの要素を削除
+          this.lists.splice(index, 1);
+        }
+      },
+      allDel: function () {
+        if (confirm("一括削除しますか？")) {
+          this.lists = this.listCount;
+        }
+      },
+    },
+    // 動的に算出
+    // filter メソッドを使用し,this.filterからisCheckedがfalseになる要素だけ返す。
+    computed: {
+      listCount: function () {
+        return this.lists.filter(function (list) {
+          // isCheckedはHTMLのチェックボックスでcheckされたらTrueを返す
+          return !list.isChecked;
+        });
+      },
+    },
+  });
+})();
