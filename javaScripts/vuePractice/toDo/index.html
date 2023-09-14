@@ -14,6 +14,7 @@
           <div class="list_count">
             ToDoリスト数：{{ listCount.length }} / {{ lists.length }}
           </div>
+
           <div class="all_del">
             <!-- 一括削除ボタン -->
             <!-- @clickで一括削除ボタン押下時のイベントを設定 -->
@@ -21,12 +22,15 @@
             <button type="button" @click="allDel">一括削除</button>
           </div>
         </div>
+
         <div class="main">
           <!-- @submit.preventで追加ボタン押下時のイベントを設定 -->
           <!-- 「prevent」で他ページへの遷移を防止 -->
           <form @submit.prevent="addList">
             <div>
               <!-- 入力した値を「v-model="newList"」でVue.jsのdataで設定した値と紐づけ -->
+              <!-- 入力フィールドの値をVue.jsのデータである newList と双方向バインディング -->
+              <!-- 入力フィールドにテキストを入力すると、その値がnewListに反映され、newListの変更も入力フィールドに反映される。 -->
               <input type="text" v-model="newList" />
               <input type="submit" value="追加" />
             </div>
