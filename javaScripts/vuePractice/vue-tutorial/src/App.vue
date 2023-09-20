@@ -1,26 +1,20 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-</template>
+<script setup>
+import {ref, computed} from 'vue'
+// const answer = computed(()=>{
+//   return 1 + 5
+// })
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+const message = computed(() =>{
+  return 'welcome <strong>'+ myName.value +'</strong>'})
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+
+const welcomeColor = 'red'
+const myName = ref('')
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<template>
+  <h1>vue3</h1>
+  <p>お名前は？ : <input type="text" size="30" v-model="myName"></p>
+  <p v-html="message" :style="{'background-color':welcomeColor, 'color':'white'}"></p>
+</template>
+
