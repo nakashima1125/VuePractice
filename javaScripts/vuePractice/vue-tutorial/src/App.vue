@@ -1,20 +1,25 @@
 <script setup>
-import {ref, computed} from 'vue'
-// const answer = computed(()=>{
-//   return 1 + 5
-// })
+import AppHeader from "./components/AppHeader.vue";
+import todoList from "./components/todoList.vue";
+import { ref } from "vue";
 
-const message = computed(() =>{
-  return 'welcome <strong>'+ myName.value +'</strong>'})
+const newTodo = ref("");
+const todos = ref([]);
 
+const addTodo = () => {
+  todos.value.push(newTodo.value);
+  newTodo.value = "";
+};
 
-const welcomeColor = 'red'
-const myName = ref('')
+const removeTodo = (index) => {
+  todos.value.splice(index, 1);
+};
 </script>
 
 <template>
-  <h1>vue3</h1>
-  <p>お名前は？ : <input type="text" size="30" v-model="myName"></p>
-  <p v-html="message" :style="{'background-color':welcomeColor, 'color':'white'}"></p>
-</template>
+  <AppHeader color="blue">MyTodo</AppHeader>
+  <input type="text" size="30" v-model="newTodo" />
+  <button v-on:click="addTodo()">追加</button>
 
+  <todoList v-bind:todos="todos" @removeTodo="removeTodo" />
+</template>
