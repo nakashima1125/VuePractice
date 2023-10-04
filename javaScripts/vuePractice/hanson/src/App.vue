@@ -1,12 +1,14 @@
 <script setup>
 import draggable from "vuedraggable";
+import { ref } from "vue";
 
-const data = [
+// refがないとドロップ後に元の場所へ戻る。
+const todos = ref([
   {
     id: 1,
     name: "キャベツ",
     content: "テスト1",
-    categoryMo: "1",
+    categoryNo: "1",
   },
   {
     id: 2,
@@ -18,20 +20,23 @@ const data = [
     id: 3,
     name: "wswsw",
     content: "テスト3",
-    categoryMo: "3",
+    categoryNo: "3",
   },
-];
+]);
+
+const dragIndex = ref("");
+const saveIndex = (index) => {
+  console.log("dragStart", index);
+  dragIndex.value = index;
+};
 </script>
 
 <template>
-  <div>
-    <!-- .handle クラスが指定された要素は、その部分をクリックして要素をドラッグできるハンドルとして機能する -->
-    <draggable v-model="data" group="people" item-key="id" handle=".handle">
-      <template #item="{ element }">
-        <div class="drag-item">
-          <li class="handle">
-            ここを押せば動かせます。 {{ element.id }}-{{ element.content }}
-          </li>
+  <div id="app">
+    <draggable v-model="todos" group="people" :key="id" tag="ul">
+      <template #item="{ element, index }">
+        <div class="drag-item" @dragstart="saveIndex(index)">
+          <li class="handle">{{ element.name }}</li>
         </div>
       </template>
     </draggable>
