@@ -4,40 +4,12 @@ import { ref } from "vue";
 
 // refがないとドロップ後に元の場所へ戻る。
 const todos = ref([
-  {
-    name: "キャベツ",
-    content: "テスト1",
-    categoryNo: "1",
-  },
-  {
-    name: "赤い",
-    content: "テスト2",
-    categoryNo: "1",
-  },
-  {
-    name: "wswsw",
-    content: "テスト3",
-    categoryNo: "1",
-  },
+  { id: 1, name: "キャベツ", content: "テスト1", categoryNo: "1" },
+  { id: 2, name: "赤い", content: "テスト2", categoryNo: "1" },
+  { id: 3, name: "wswsw", content: "テスト3", categoryNo: "1" },
 ]);
 
-const todos2 = ref([
-  {
-    name: "キャベツ",
-    content: "テスト1",
-    categoryNo: "2",
-  },
-  {
-    name: "赤い",
-    content: "テスト2",
-    categoryNo: "2",
-  },
-  {
-    name: "wswsw",
-    content: "テスト3",
-    categoryNo: "2",
-  },
-]);
+const todos2 = ref([""]);
 
 const dragIndex = ref("");
 const saveIndex = (index) => {
@@ -46,6 +18,7 @@ const saveIndex = (index) => {
 };
 </script>
 
+<!-- :key:idで空でも入れられるようになっている -->
 <template>
   <div class="flex">
     <div class="col3">
