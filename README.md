@@ -5,6 +5,7 @@ I mainly copy tutorials, Qiita articles, and site sutras.
 - R
 - javaScripts
   - VUE
+- typeScripts
 - Go
 - Docker
 
