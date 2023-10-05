@@ -1,10 +1,10 @@
-## 概要
-必要最低限の機能を実装した簡易SNS
+## overview
+A simple SNS that implements the minimum necessary functions
 
-## 技術
-- Django
-- HTML
-- CSS
+## Technology
+-Django
+-HTML
+-CSS
 
-## その他
-今後、拡張予定です。
+## others
+**I plan to expand it in the future.**
