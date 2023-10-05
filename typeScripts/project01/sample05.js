@@ -1,6 +1,10 @@
 "use strict";
 class Address {
-    constructor(zip) {
+    // public zip2;
+    // public prefecture2;
+    // public city2;
+    constructor(_zip) {
+        this._zip = _zip;
         this.addresses = {
             "079-1100": {
                 prefecture: "北海道",
@@ -11,15 +15,23 @@ class Address {
                 city: "青森市",
             },
         };
-        this.zip = zip;
+    }
+    set zip(value) {
+        this._zip = value;
+    }
+    get zip() {
+        return this._zip.substr(0, 3);
     }
     getAddress() {
-        let here = this.addresses[this.zip];
+        let here = this.addresses[this._zip];
         return `${here.prefecture} ${here.city}`;
     }
     getZip() {
-        return this.zip;
+        return this._zip;
     }
 }
 let myAddress = new Address("079-1100");
-console.log(myAddress.getAddress());
+myAddress.zip = "111-1111";
+// console.log(myAddress.getAddress());
+console.log(myAddress.zip);
+console.log(myAddress.addresses);

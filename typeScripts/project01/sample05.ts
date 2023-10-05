@@ -1,8 +1,17 @@
-class Address {
-  private zip: string;
-  private addresses: any;
+// このフォーマットに従えというもの
+interface AddressFormat {
+  zip: string;
+  prefecture: string;
+  city: string;
+}
 
-  public constructor(zip: string) {
+class Address implements AddressFormat {
+  readonly addresses: any;
+  // public zip2;
+  // public prefecture2;
+  // public city2;
+
+  public constructor(private _zip: string) {
     this.addresses = {
       "079-1100": {
         prefecture: "北海道",
@@ -13,19 +22,28 @@ class Address {
         city: "青森市",
       },
     };
+  }
 
-    this.zip = zip;
+  set zip(value: string) {
+    this._zip = value;
+  }
+
+  get zip(): string {
+    return this._zip.substr(0, 3);
   }
 
   public getAddress(): string {
-    let here = this.addresses[this.zip];
+    let here = this.addresses[this._zip];
     return `${here.prefecture} ${here.city}`;
   }
 
   public getZip(): string {
-    return this.zip;
+    return this._zip;
   }
 }
 
 let myAddress = new Address("079-1100");
-console.log(myAddress.getAddress());
+myAddress.zip = "111-1111";
+// console.log(myAddress.getAddress());
+console.log(myAddress.zip);
+console.log(myAddress.addresses);
