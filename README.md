@@ -1,13 +1,13 @@
 ## Overview
+
 I mainly copy tutorials, Qiita articles, and site sutras.
 
-## Languages and Techniques 
+## Languages and Techniques
+
 - R
-- javaScripts
-  - VUE
-- typeScripts
+- java
+- javaScript
+- typeScript
 - Go
+- python
 - Docker
-
-
-
