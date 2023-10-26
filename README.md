@@ -1,6 +1,6 @@
 ## Overview
-I mainly play tutorials, Qiita articles, and site.
 
+I mainly play tutorials, Qiita articles, and site.
 
 ## Languages and Techniques
 
