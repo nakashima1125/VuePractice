@@ -1,0 +1,5 @@
+
+```{r}
+jhk <- read.csv("Rによる多変量解析入門データ分析の実践と理論/R_MultivariateAnalysis0726/第01章/人事評価結果.csv", fileEncoding = "UTF-8")
+
+```
