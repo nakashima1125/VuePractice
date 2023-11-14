@@ -1,5 +1,5 @@
 ---
-title: "R ⇔ python"
+title: "R による多変量解析入門データ分析の実践と理論 １章"
 editor: source
 date: "`r format(Sys.time(), '%Y/%m/%d')`"
 toc: true
@@ -12,22 +12,46 @@ editor_options:
 # jupyter: python3
 ---
 ```{r}
-#| message = FALSE
-#| eval=FALSE
-library(tidyverse)
-library(janitor)
-library(knitr)
-library(lucid)
-library(data.table)
-library(lubridate)
-library(writexl)
-library(vroom)
-library(dplyr)
+library(readr)
+
+# CSVファイルを読み込み
+jhk <- read_delim("R_MultivariateAnalysis/R_Multivariate Analysis0726/第01章/人事評価結果.csv", delim = ",", locale = locale(encoding = "Shift-JIS"))
 ```
 
+## データの確認
 ```{r}
-jhk <- 
-  vroom("R_MultivariateAnalysis\\R_Multivariate Analysis0726\\第01章\\人事評価結果.csv",
-        locale = locale(encoding = "cp932"))
 dim(jhk)
+colnames(jhk) 
+head(jhk,3) 
+```
+
+## ヒストグラムの描画
+### メモ
+jhkから「ストレス」の値を取り出し、20の階級（breaks）でヒストグラムを作成。
+```{r}
+#パッケージlatticeの読み込み
+library(lattice)
+histogram(~ストレス, data=jhk,breaks=20,type="count")
+```
+
+## 値の算出
+### メモ
+tableで度数分布表を作成し、sortで昇順にする。
+```{r}
+mean(jhk$ストレス)
+median(jhk$総合)
+# 最頻値
+sort(table(jhk$年代))
+```
+
+## 散布度の算出
+### メモ
+平均偏差とは、データの中央値に対するすべての偏差の絶対値を平均した値。平均値や中央値からのデータのばらつきを測るためのもの。
+```{r}
+# 標準偏差
+sd(jhk$ストレス)
+# 分散
+var(jhk$総合)
+# 平均偏差
+mean(abs(jhk$ストレス - median(jhk$ストレス)))
 ```
