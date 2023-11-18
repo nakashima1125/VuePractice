@@ -74,5 +74,12 @@ tapply(jhk$協調性, jhk$性別, sd)
 
 ## 箱ひげ図
 ### メモ
+horizontal=FALSEで縦置き
 ```{r}
+boxplot(jhk$技能, horizonal=TRUE)
+#性別毎に「協調性」の箱ヒゲ図
+boxplot(協調性~性別,data=jhk, horizontal=TRUE)
+
+#四分位数も含めた要約統計量の算出
+summary(jhk$技能)
 ```
