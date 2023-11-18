@@ -22,7 +22,7 @@ jhk <- read_delim("R_MultivariateAnalysis/R_Multivariate Analysis0726/第01章/�
 ```{r}
 dim(jhk)
 colnames(jhk) 
-head(jhk,3) 
+head(jhk,10) 
 ```
 
 ## ヒストグラムの描画
@@ -100,7 +100,25 @@ var.test(協調性~性別, data=jhk)
 
 #独立な2群のt検定（等分散を仮定）
 t.test(協調性~性別, data=jhk, var.equal=TRUE)
+
+# Welch法によるt検定
+t.test(協調性~性別, data=jhk)
+
+# 対応あるt検定
+score <- c(jhk$総合, jhk$昨年総合)
+year <- c(rep("今年",800),rep("昨年",800))
+t.test(score~year, paired=TRUE)
 ```
 
+## 信頼区間
+```{r}
+# install.packages("gplots")
+library(gplots)
+#群ごとに信頼区間
+plotmeans(協調性~性別, data=jhk, p=0.95, ylim=c(49,54))
+#信頼区間の算出
+t.test(jhk$協調性[jhk$性別=="F"])
+t.test(jhk$協調性[jhk$性別=="M"])
+```
 
 
