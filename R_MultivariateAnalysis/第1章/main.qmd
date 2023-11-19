@@ -164,9 +164,22 @@ library(lattice)
 xyplot(知識~技能|年代+部署, data=jhk)
 ```
 
-## 散布図の描画
+## 相関係数
 ```{r}
+#相関係数の算出
+cor(jhk$協調性, jhk$ストレス)
+
+#相関行列（分散共分散行列）の算出
+cov(jhk[, kjs])
+
+#相関係数の検定
+# install.packages("psych")
+library(psych)　#パッケージpsychのインストール
+corkekka <- corr.test(jhk[,kjs])　
+corkekka$t #t値の算出
+corkekka$p #p値の算出
 ```
+
 
 ## 散布図の描画
 ```{r}
