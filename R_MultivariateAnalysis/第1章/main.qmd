@@ -181,8 +181,15 @@ corkekka$p #p値の算出
 ```
 
 
-## 散布図の描画
+## クロス集計表
 ```{r}
+(cross <- table(jhk$部署, jhk$年代))
+
+prop.table(cross)
+prop.table(cross, 1)
+prop.table(cross, 2)
+
+xtabs(~部署+年代+性別, data=jhk)
 ```
 
 ## 散布図の描画
