@@ -146,3 +146,48 @@ head(zscore, 5)
 tscore <- zscore*10 + 50
 head(tscore, 5)
 ```
+
+## 散布図の描画
+```{r}
+# 描画の文字設定をmac用に変更
+par(family = "HiraKakuProN-W3")
+
+gino <- jhk$技能
+chisiki <- jhk$知識
+plot(gino, chisiki, xlab="技能", ylab="知識")
+
+kjs <- c("協調性", "自己主張", "ストレス")
+plot(jhk[, kjs])
+
+#層別散布図の描画
+library(lattice)
+xyplot(知識~技能|年代+部署, data=jhk)
+```
+
+## 散布図の描画
+```{r}
+```
+
+## 散布図の描画
+```{r}
+```
+
+## 散布図の描画
+```{r}
+```
+
+## 散布図の描画
+```{r}
+```
+
+## 散布図の描画
+```{r}
+```
+
+## 散布図の描画
+```{r}
+```
+
+## 散布図の描画
+```{r}
+```
