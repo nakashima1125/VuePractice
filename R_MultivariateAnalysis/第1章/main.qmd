@@ -190,6 +190,13 @@ prop.table(cross, 1)
 prop.table(cross, 2)
 
 xtabs(~部署+年代+性別, data=jhk)
+
+# カイ二乗検定を行う。
+# 帰無仮説：部署と年齢層に関連はない
+(reschisq <- chisq.test(cross))
+
+#残差分析(カイ二乗検定の後にどのカテゴリーの比率に有意差があったのか分析する)
+reschisq$stdres
 ```
 
 ## 散布図の描画
