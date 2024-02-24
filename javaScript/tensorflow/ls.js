@@ -1,4 +1,5 @@
 // https://qiita.com/tamfoi/items/bd1def3041ac04500e52
+
 const tf = require("@tensorflow/tfjs-node");
 
 // 学習データを用意
