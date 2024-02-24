@@ -1,6 +1,0 @@
-install.packages("knitr")
-install.packages("tidyverse")
-install.packages("rmarkdown")
-install.packages("writexl")
-install.packages("diffr")
-install.packages("dplyr")
