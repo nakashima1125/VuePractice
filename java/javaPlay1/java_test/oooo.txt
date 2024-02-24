@@ -1,0 +1,4 @@
+左下のTOMCATで右クリックでstartで起動
+VSCode に Maven の場所を登録します。
+File -> Preferences -> Settings で User 設定で maven.executable.path を検索し、Mavenの bin/mvn.cmd (Win) or bin/mvn (lin/mac) をフルパスで設定します。
+maven.terminal.useJavaHome を true に設定します。これにより、Maven実行時に java.home で設定したJDKを使うようになります。(もし Maven 実行用のJDKを独立して設定したい場合は、terminal.integrated.env などで JAVA_HOME 環境変数を別途指定してください。)
