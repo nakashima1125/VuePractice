@@ -5,6 +5,7 @@ const a = tf.tensor([
   [1, 2],
   [3, 4],
 ]);
+
 console.log("shape:", a.shape);
 a.print();
 
@@ -13,3 +14,7 @@ const shape = [2, 2];
 const b = tf.tensor([1, 2, 3, 4], shape);
 console.log("shape:", b.shape);
 b.print();
+
+let c = tf.matMul(a, b);
+console.log("c");
+c.print();

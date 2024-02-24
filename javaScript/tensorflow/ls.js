@@ -11,6 +11,8 @@ for (let i = 0; i <= 100; i++) {
 let xData = tf.tensor1d(randomData);
 let yData = tf.add(tf.mul(xData, tf.scalar(0.1)), tf.scalar(0.3));
 
+xData.print();
+
 let W = tf.variable(tf.zeros([1]));
 let b = tf.variable(tf.zeros([1]));
 //y = W * x + b
