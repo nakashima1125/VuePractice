@@ -1,0 +1,41 @@
+---
+title:"polarsの速さを体感する。"
+format: html
+---
+
+```{r}
+#| eval: false
+# install.packages("tidyverse")
+# install.packages("palmerpenguins")
+# install.packages("tictoc", type = "source")
+# install.packages("rsample")
+library(purrr)
+library(tibble)
+library(tictoc)
+library(dplyr)
+library(rsample)
+```
+```{r}
+df <- palmerpenguins::penguins
+
+dfl <-
+  bootstraps(df, times = 20000)
+```
+
+```{r}
+dfl_all <-
+  map_df(dfl$splits, \(x) as_tibble(x))
+```
+
+```{r}
+tictoc::tic()
+dfl_all |> arrange(bill_length_mm)
+tictoc::toc()
+```
+```{python}
+
+```
+
+			
+  
+
