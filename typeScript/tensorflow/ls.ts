@@ -1,6 +1,6 @@
 // https://qiita.com/tamfoi/items/bd1def3041ac04500e52
 
-const tf = require("@tensorflow/tfjs-node");
+let tf = require("@tensorflow/tfjs-node");
 
 // 学習データを用意
 let randomData = [];
@@ -20,7 +20,7 @@ let W = tf.variable(tf.zeros([1]));
 let b = tf.variable(tf.zeros([1]));
 //y = W * x + b
 
-let y = (x) => tf.add(tf.mul(W, x), b);
+let y = (x: any) => tf.add(tf.mul(W, x), b);
 
 // let loss = (y, yd) => y.sub(yd).square().mean();
 // let optimizer = tf.train.sgd(0.5);
