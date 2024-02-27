@@ -33,6 +33,7 @@ dfl_all |> arrange(bill_length_mm)
 tictoc::toc()
 ```
 ```{python}
+import polars as pl
 
 ```
 

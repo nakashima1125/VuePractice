@@ -19,6 +19,7 @@ yData.print();
 let W = tf.variable(tf.zeros([1]));
 let b = tf.variable(tf.zeros([1]));
 //y = W * x + b
+
 let y = (x) => tf.add(tf.mul(W, x), b);
 
 // let loss = (y, yd) => y.sub(yd).square().mean();
