@@ -1,19 +1,23 @@
-# 環境構築
+# 概要
 
-## tsc を vscode へ認識させる
+typeScript の基本的な構文を写経するディレクトリ
+
+## 環境構築
+
+### tsc を vscode へ認識させる
 
 1. npm install -g typescript
 2. tsc --version でバージョンを確認
 
-## プロジェクトの作成
+### プロジェクトの作成
 
 - npm init でプロジェクトを作成する。tsc --init で tscconfig.json を作成する。
 
-## プロジェクトの実行
+### プロジェクトの実行
 
 npm run watch
 
-## 個別ファイルの実行
+### 個別ファイルの実行
 
 1. コンパイル
 
@@ -23,6 +27,6 @@ npm run watch
 
 - node hoge.js
 
-## メモ
+### メモ
 
 ctrl + shift + b で watch を選ぶことでコードに保存があればコンパイルを自動でしてくれる。
