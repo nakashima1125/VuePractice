@@ -1,0 +1,134 @@
+---
+title: "polars練習"
+format: html
+---
+
+
+# R
+## データ読み込み
+```{r}
+library(tidyverse)
+library(rsample)
+
+df <- palmerpenguins::penguins
+df
+
+```
+
+## データ増やす
+```{r}
+dfl <- 
+  bootstraps(df, times = 20000)
+```
+
+### 結果からデータフレームを取り出す
+```{r}
+dfl_all <- 
+  map_df(dfl$splits, \(x) as_tibble(x))
+```
+
+## ソートして時間計測
+```{r}
+tictoc::tic()
+dfl_all |>
+  drop_na(bill_length_mm) |> 
+  arrange(bill_length_mm)
+tictoc::toc()
+
+dfl_all |>
+  drop_na(bill_length_mm) |> 
+  arrange(bill_length_mm) |>
+  tail()
+```
+
+```{r}
+tictoc::tic()
+dfl_all |>
+  drop_na(bill_length_mm) |> 
+  group_by(species) |> 
+  arrange(bill_length_mm)
+tictoc::toc()
+```
+
+
+# Python
+## データ読み込みしてソート
+```{python}
+import pandas as pd
+import polars as pl
+
+
+df_pl = r.dfl_all
+
+df_pl.sort_values("body_mass_g")
+
+```
+# R
+## 欠損値を読み込むためのオプション設定
+```{r}
+# pythonで読む際にNAをちゃんと反映させるための処理
+# 参照：https://github.com/rstudio/reticulate/pull/1439
+
+options(reticulate.pandas_use_nullable_dtypes = TRUE)
+```
+
+# Python
+## （再）データ読み込みしてソート
+
+```{python}
+df_pl = r.dfl_all
+
+df_pl.sort_values("body_mass_g")
+```
+
+### ソートして時間計測
+```{python}
+import time
+start = time.time()
+
+(
+  df_pl
+    .dropna(subset = ["bill_length_mm"])
+    .sort_values("bill_length_mm")
+)
+
+print(time.time() - start)
+```
+
+
+## polarsのデータフレームに変換
+```{python}
+df_pl = pl.from_pandas(df_pl)
+df_pl
+```
+
+
+## ソートして時間計測
+```{python}
+start = time.time()
+
+(
+  df_pl
+    .drop_nulls(subset = ["bill_length_mm"])
+    .sort("bill_length_mm")
+)
+
+print(time.time() - start)
+```
+
+```{python}
+start = time.time()
+
+(
+df_pl
+   .drop_nulls(subset = ["bill_length_mm"])
+   .select(pl.all().sort_by(["bill_length_mm"]).over("species"))
+)
+
+print(time.time() - start)
+```
+
+
+
+
+
