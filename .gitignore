@@ -8,7 +8,7 @@ node_modules
 *.lock
 # C extensions
 *.so
-
+.conda
 # Distribution / packaging
 .Python
 build/
