@@ -34,6 +34,7 @@
       <button type="submit">送信</button>
       <!-- <input type="submit" value="送信します"/> -->
     </form>
+    <hr />
 
     <h2>外部検索</h2>
     <h3>Google検索</h3>
@@ -69,6 +70,29 @@
           <option value="fish">焼き魚</option>
           <option value="meat" selected>ステーキ</option>
         </select>
+      </p>
+
+      <p>
+        <label for="cheese">チーズの量</label>
+        <input
+          type="range"
+          id="cheese"
+          min="1"
+          max="50"
+          name="cheese_level"
+          step="10"
+          value="75"
+        />
+      </p>
+      <button>送信</button>
+    </form>
+    <hr />
+    <form>
+      <p>
+        <label for="commnet"> その他コメント </label>
+        <br />
+        <textarea id="comment" rows="10" cols="40" placeholder="コメント">
+        </textarea>
       </p>
       <button>送信</button>
     </form>
