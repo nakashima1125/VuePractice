@@ -1,0 +1,131 @@
+---
+title: "quarto練習vscode"
+---
+
+- 参考
+https://www.rhosignal.com/posts/polars-pandas-cheatsheet/
+
+- ショートカット
+
+> file > preferences > keyboard shortcuts  
+> Quarto: Insert Code Cell  
+> ctrl + shift + i (win)/ (Mac)  
+
+
+右上三点リーダから
+
+
+
+## ライブラリ読み込みとデータ作成
+```{python}
+#| label: データ作成
+#| 
+import polars as pl
+import polars.selectors as cs
+
+import pandas as pd
+import numpy as np
+
+# polarsのデータフレーム作成
+df = pl.DataFrame(                     # <1>
+    {
+        'grp': [1, 2, 1, 2, 1, 2],
+        'x': list(range(6, 0, -1)),
+        'y': list(range(4, 10)),
+        'z': [3, 4, 5, 6, 7, None],
+        "ref" : list('abcdef')
+    }
+)
+
+df
+```
+
+1. polarsのデータフレーム作成
+
+## select
+```{python}
+df.select(pl.col("x", "y"))
+```
+
+```{python}
+df.select(["x", "y"])
+```
+
+
+- expression
+[公式doc:Expressions](https://docs.pola.rs/user-guide/concepts/expressions/#examples)
+[Qiita:【Polars 入門】エクスプレッションを完全に理解する](https://qiita.com/Johannyjm/items/125736c186507a12eda0)
+
+```{python}
+df.select(pl.col("x", "y"))
+```
+
+- 従来の列選択
+
+```{python}
+df[["x", "y"]]
+```
+
+❔以上、全部動くが、公式な説明は？
+
+- 変数（ここではvars、Rでいうオブジェクト）にカラムの文字リストを格納してselectで実行
+
+```{python}
+vars = ["x", "y"]
+vars
+
+df.select(vars)
+
+```
+
+- 正規表現など
+
+✖動かない例
+```{python}
+df.select(cs.matches('x\|y'))
+```
+
+○動く
+
+- [公式doc:Selectors](https://docs.pola.rs/py-polars/html/reference/selectors.html#selectors)
+
+```{python}
+df.select(cs.matches('x|y'))
+```
+
+
+```{python}
+df.select(cs.starts_with("y"))
+```
+
+以前はこういうやり方だったのに、もうドキュメント参照できなかった
+```{python}
+df.select(pl.col("^y.*$"))
+```
+
+## with_columns
+- 列の追加
+- pl.lit() は定数、Seriesの指定に使う
+```{python}
+df.with_columns(w = pl.lit(1))
+```
+
+```{python}
+df.with_columns(xplusy = pl.col("x") + pl.col("y"))
+```
+
+```{python}
+df.with_columns(pl.col("x").cast(pl.Float64))
+```
+
+
+
+## rename
+
+
+```{python}
+df.rename({"x":"x2", "y":"y2"})
+```
+
+- rename目的で`.alias()`を使う場面も多い
+
