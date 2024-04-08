@@ -136,6 +136,6 @@ dmypy.json
 *.pkl
 *.csv
 
+# other
 playGroundVenv
 R_Multivariate Analysis0726
-.DS_Store
