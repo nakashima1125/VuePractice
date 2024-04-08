@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -144,3 +145,7 @@ dmypy.json
 *.csv
 
 playGroundVenv
+=======
+R_Multivariate Analysis0726
+.DS_Store
+>>>>>>> sub2/main

@@ -1,0 +1,221 @@
+---
+title: "R による多変量解析入門データ分析の実践と理論 １章"
+editor: source
+date: "`r format(Sys.time(), '%Y/%m/%d')`"
+toc: true
+number-sections: true
+format: 
+  html:
+    embed-resources: true
+editor_options: 
+  chunk_output_type: console
+# jupyter: python3
+---
+```{r}
+library(readr)
+
+# CSVファイルを読み込み
+jhk <- read_delim("R_MultivariateAnalysis/R_Multivariate Analysis0726/第01章/人事評価結果.csv", delim = ",", locale = locale(encoding = "Shift-JIS"))
+```
+
+## データの確認
+```{r}
+dim(jhk)
+colnames(jhk) 
+head(jhk,10) 
+```
+
+## ヒストグラムの描画
+### メモ
+jhkから「ストレス」の値を取り出し、20の階級（breaks）でヒストグラムを作成。
+```{r}
+#パッケージlatticeの読み込み
+library(lattice)
+histogram(~ストレス, data=jhk,breaks=20,type="count")
+```
+
+## 値の算出
+### メモ
+tableで度数分布表を作成し、sortで昇順にする。
+```{r}
+mean(jhk$ストレス)
+median(jhk$ストレス)
+# 最頻値
+sort(table(jhk$年代))
+```
+
+## 散布度の算出
+### メモ
+平均偏差とは、データの中央値に対するすべての偏差の絶対値を平均した値。中央値からのデータのばらつきを測るためのもの。
+```{r}
+# 標準偏差
+sd(jhk$ストレス)
+# 分散
+var(jhk$総合)
+# 平均偏差
+mean(abs(jhk$ストレス - median(jhk$ストレス)))
+```
+
+## ヒストグラム
+### メモ
+年代別、性別で協調性を可視化
+```{r}
+histogram(~協調性|年代+性別, data=jhk, breaks=15)
+```
+
+## 最頻値と散布図
+### メモ
+tapply：統計量を求める量的変数, 群、関数
+女性の方が協調性の平均が大きく散らばりが小さい。
+```{r}
+tapply(jhk$協調性, jhk$性別, mean)
+tapply(jhk$協調性, jhk$性別, sd)
+```
+
+## 箱ひげ図
+### メモ
+horizontal=FALSEで縦置き
+```{r}
+boxplot(jhk$技能, horizonal=TRUE)
+#性別毎に「協調性」の箱ヒゲ図
+boxplot(協調性~性別,data=jhk, horizontal=TRUE)
+
+#四分位数も含めた要約統計量の算出
+summary(jhk$技能)
+```
+
+
+## t検定
+協調性による性別間の違いを検定。
+帰無仮説：２群の母集団の平均に差はない（等しい）
+### メモ
+#### 等分散検定(F検定)
+2つ以上の群の平均値に統計的な有意差があるかどうかを検定する。
+帰無仮説：2群間の分散に差がない(等分散である)
+#### 独立な2群（対応のない2群）のt検定
+2つの異なる群の平均値が統計的な有意差があるかどうかを検証する。
+```{r}
+# 等分散検定(F検定)
+var.test(協調性~性別, data=jhk)
+
+#独立な2群のt検定（等分散を仮定）
+t.test(協調性~性別, data=jhk, var.equal=TRUE)
+
+# Welch法によるt検定
+t.test(協調性~性別, data=jhk)
+
+# 対応あるt検定
+score <- c(jhk$総合, jhk$昨年総合)
+year <- c(rep("今年",800),rep("昨年",800))
+t.test(score~year, paired=TRUE)
+```
+
+## 信頼区間
+```{r}
+# install.packages("gplots")
+library(gplots)
+
+#群ごとに信頼区間
+plotmeans(協調性~性別, data=jhk, p=0.95, ylim=c(49,54))
+#信頼区間の算出
+t.test(jhk$協調性[jhk$性別=="F"])
+t.test(jhk$協調性[jhk$性別=="M"])
+```
+
+## 多変量解析の基礎
+```{r}
+#列(変数に対する基礎集計)
+varname <- c("協調性", "自己主張", "技能", "知識")
+jhk2 <- jhk[, varname]
+
+#変数別の平均値と分散
+apply(jhk2, 2, mean)
+apply(jhk2, 2, sd)
+
+#社員ごとのの平均値と分散
+apply(jhk2, 1, mean)
+apply(jhk2, 1, sd)
+
+#多変数の分布を群間で比較
+by(jhk2, jhk$性別, apply, 2, mean)
+by(jhk2, jhk$性別, apply, 2, sd)
+
+#標準化
+zscore <- scale(jhk2)
+head(zscore, 5)
+# 偏差値の算出
+tscore <- zscore*10 + 50
+head(tscore, 5)
+```
+
+## 散布図の描画
+```{r}
+# 描画の文字設定をmac用に変更
+par(family = "HiraKakuProN-W3")
+
+gino <- jhk$技能
+chisiki <- jhk$知識
+plot(gino, chisiki, xlab="技能", ylab="知識")
+
+kjs <- c("協調性", "自己主張", "ストレス")
+plot(jhk[, kjs])
+
+#層別散布図の描画
+library(lattice)
+xyplot(知識~技能|年代+部署, data=jhk)
+```
+
+## 相関係数
+```{r}
+#相関係数の算出
+cor(jhk$協調性, jhk$ストレス)
+
+#相関行列（分散共分散行列）の算出
+cov(jhk[, kjs])
+
+#相関係数の検定
+# install.packages("psych")
+library(psych)　#パッケージpsychのインストール
+corkekka <- corr.test(jhk[,kjs])　
+corkekka$t #t値の算出
+corkekka$p #p値の算出
+```
+
+
+## クロス集計表
+```{r}
+(cross <- table(jhk$部署, jhk$年代))
+
+prop.table(cross)
+prop.table(cross, 1)
+prop.table(cross, 2)
+
+xtabs(~部署+年代+性別, data=jhk)
+
+# カイ二乗検定を行う。
+# 帰無仮説：部署と年齢層に関連はない
+(reschisq <- chisq.test(cross))
+
+#残差分析(カイ二乗検定の後にどのカテゴリーの比率に有意差があったのか分析する)
+reschisq$stdres
+```
+
+## 散布図の描画
+```{r}
+```
+
+## 散布図の描画
+```{r}
+```
+
+## 散布図の描画
+```{r}
+```
+
+## 散布図の描画
+```{r}
+```
+
+## 散布図の描画
+```{r}
+```
