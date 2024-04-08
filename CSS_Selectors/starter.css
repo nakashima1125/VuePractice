@@ -1,0 +1,49 @@
+/* section span a {
+  color: aqua;
+} */
+
+/* 子孫セレクター */
+.post a {
+  color: aqua;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+/* .footer a {
+  color: blue;
+}  */
+
+/* 隣接セレクター */
+/* input + button {
+  background-color: springgreen;
+}
+
+h2 + button {
+  background-color: tomato;
+} */
+
+/* 直下セレクター */
+/* footer > a {
+  color: aqua;
+} */
+
+/* 属性セレクター */
+/* input[type="text"] {
+  color: red;
+}
+section[class="post"] {
+  color: blue;
+}
+a[href*="google"] {
+  color: brown;
+} */
+
+/* 擬似クラス */
+.post button:hover {
+  background-color: blue;
+  color: white;
+}
+
+.post a:hover {
+  text-decoration: underline;
+}
