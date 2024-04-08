@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+ようこそ<br>
+<a href="{% url 'signup' %}" class="btn btn-success" tabindex="-1" role="button" aria-disabled="true">サインアップ</a><br>
+<a href="{% url 'login' %}" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">ログイン</a>
+{% endblock content %}

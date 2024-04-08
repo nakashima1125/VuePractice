@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -149,3 +150,6 @@ playGroundVenv
 R_Multivariate Analysis0726
 .DS_Store
 >>>>>>> sub2/main
+=======
+venv
+>>>>>>> sub3/main

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand">toDo</a>
+    <form class="d-flex">
+      <p>{{ user.get_username }}</p>
+      <p>ログアウト</p>
+    </form>
+  </div>
+</nav>
+{% endblock header %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">
+              <span data-feather="home"></span>
+              全タスク
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span data-feather="shopping-cart"></span>
+              Products
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <a href="{% url 'create' %}" class="btn btn-secondary mb-3" tabindex="-1" role="button" aria-disabled="true">作成</a>
+        {% for item in object_list %}
+          <div class="alert alert-{{item.priority}}" role="alert">
+            <p>{{ item.title }}  期日:{{ item.duedate|date:'Y/n/d'}}</p>
+            <a href="{% url 'update' item.pk %}" class="btn btn-info" tabindex="-1" role="button" aria-disabled="true">編集</a>
+            <a href="{% url 'delete' item.pk %}" class="btn btn-success" tabindex="-1" role="button" aria-disabled="true">削除</a>
+            <a href="{% url 'detail' item.pk %}" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true">詳細</a>
+          </div>
+        {% endfor %}
+    </main>
+  </div>
+</div>
+{% endblock content %}
