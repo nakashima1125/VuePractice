@@ -6,3 +6,7 @@ A place to try out codes and copy codes. I mainly transcribe or test write the f
 - technical books
 - internet articles
 - app development（trial）
+
+# purpose
+
+Learning by writing code
