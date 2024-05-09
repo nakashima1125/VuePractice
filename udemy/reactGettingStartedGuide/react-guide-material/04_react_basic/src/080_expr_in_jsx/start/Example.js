@@ -1,5 +1,10 @@
 import Child from "./components/Child";
-
-const Example = () => <Child />;
+import Exression from "./components/Exression";
+const Example = () => (
+  <>
+    <Child />
+    <Exression />
+  </>
+);
 
 export default Example;
