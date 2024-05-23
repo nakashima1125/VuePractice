@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const Example = () => {
   let displayVal;
-  let [ val, setVal ] = useState();
+  let [val, setVal] = useState()
   console.log('再レンダリングされました');
   return (
     <>
