@@ -23,19 +23,23 @@ const Example = () => {
   const [filterVal, setFilterVal] = useState("");
   return (
     <>
-      <input type="text" value={filterVal} onChange={(e) => setFilterVal(e.target.value)} />
+      <input
+        type="text"
+        value={filterVal}
+        onChange={(e) => setFilterVal(e.target.value)}
+      />
       <ul>
         {persons
-        // filterを追加
-        .filter(person => {
-          const isMatch = person.name.indexOf(filterVal) !== -1;
-          return isMatch
-        })
-        .map((person) => (
-          <li key={person.name}>
-            <Profile {...person} />
-          </li>
-        ))}
+          // filterを追加
+          .filter((person) => {
+            const isMatch = person.name.indexOf(filterVal) !== -1;
+            return isMatch;
+          })
+          .map((person) => (
+            <li key={person.name}>
+              <Profile {...person} />
+            </li>
+          ))}
       </ul>
     </>
   );
